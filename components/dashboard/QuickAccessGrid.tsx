@@ -23,7 +23,7 @@ export default function QuickAccessGrid() {
             href: "/education/premium/dictionary"
         },
         {
-            name: "제품분석/리포트",
+            name: "AI 제품/분석기",
             icon: <FileText size={24} className="text-white" />,
             color: "bg-indigo-500", // indigo
             href: "/analysis"
