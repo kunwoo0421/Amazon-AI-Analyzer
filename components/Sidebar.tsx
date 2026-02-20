@@ -22,7 +22,8 @@ import {
     Menu,
     User,
     CreditCard,
-    LogOut
+    LogOut,
+    FileText
 } from "lucide-react";
 import Image from "next/image";
 import { useData, UserRole } from "../app/contexts/DataContext";
@@ -74,6 +75,12 @@ const NAVIGATION_CONFIG = [
                     { name: "일본 시장 분석 (예정)", path: "/analysis/jp" },
                     { name: "글로벌 분석 (예정)", path: "/analysis/global" }
                 ]
+            },
+            {
+                name: "입점 서류 검토",
+                path: "/onboarding",
+                icon: FileText,
+                minRole: "USER_1" as UserRole
             }
         ]
     },
