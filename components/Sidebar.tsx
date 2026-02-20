@@ -250,21 +250,34 @@ export default function Sidebar({ variant = 'default' }: SidebarProps) {
 
                                     return (
                                         <li key={item.name}>
-                                            <button
-                                                onClick={() => hasChildren ? toggleExpand(item.name) : null}
-                                                className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all duration-200 group ${isActive
-                                                    ? theme.bgActive
-                                                    : `${theme.textDefault} ${theme.bgHover} ${theme.textHover}`
-                                                    }`}
-                                            >
-                                                <div className="flex items-center gap-3">
-                                                    <item.icon size={20} className={isActive ? theme.iconActive : theme.iconInactive} />
-                                                    <span className={`font-bold text-sm tracking-tight ${isActive && !isMobile ? "text-white" : ""}`}>{item.name}</span>
-                                                </div>
-                                                {hasChildren && (
+                                            {hasChildren ? (
+                                                <button
+                                                    onClick={() => toggleExpand(item.name)}
+                                                    className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all duration-200 group ${isActive
+                                                        ? theme.bgActive
+                                                        : `${theme.textDefault} ${theme.bgHover} ${theme.textHover}`
+                                                        }`}
+                                                >
+                                                    <div className="flex items-center gap-3">
+                                                        <item.icon size={20} className={isActive ? theme.iconActive : theme.iconInactive} />
+                                                        <span className={`font-bold text-sm tracking-tight ${isActive && !isMobile ? "text-white" : ""}`}>{item.name}</span>
+                                                    </div>
                                                     <ChevronDown size={16} className={`transition-transform duration-200 ${isExpanded ? "rotate-180" : ""} ${isActive ? "text-white/70" : "opacity-50"}`} />
-                                                )}
-                                            </button>
+                                                </button>
+                                            ) : (
+                                                <Link
+                                                    href={item.path}
+                                                    className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all duration-200 group ${isActive
+                                                        ? theme.bgActive
+                                                        : `${theme.textDefault} ${theme.bgHover} ${theme.textHover}`
+                                                        }`}
+                                                >
+                                                    <div className="flex items-center gap-3">
+                                                        <item.icon size={20} className={isActive ? theme.iconActive : theme.iconInactive} />
+                                                        <span className={`font-bold text-sm tracking-tight ${isActive && !isMobile ? "text-white" : ""}`}>{item.name}</span>
+                                                    </div>
+                                                </Link>
+                                            )}
 
                                             {/* Submenu */}
                                             <AnimatePresence>
