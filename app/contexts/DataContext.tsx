@@ -56,6 +56,8 @@ interface DataContextType {
     grantAccess: (email: string, feature: string) => void;
     verifyAccess: (feature: string) => boolean;
     checkSecretPost: (id: number, password?: string) => boolean;
+    showTopBanner: boolean;
+    setTopBannerVisibility: (show: boolean) => void;
 }
 
 // ----------------------------------------------------------------------
@@ -97,6 +99,7 @@ const DataContext = createContext<DataContextType | undefined>(undefined);
 
 export function DataProvider({ children }: { children: ReactNode }) {
     const [posts, setPosts] = useState<Post[]>(INITIAL_POSTS);
+    const [showTopBanner, setTopBannerVisibility] = useState(true);
 
     // Mock Users for Demo
     const MOCK_USERS: Record<UserRole, User> = {
@@ -183,7 +186,9 @@ export function DataProvider({ children }: { children: ReactNode }) {
             checkPermission,
             grantAccess,
             verifyAccess,
-            checkSecretPost
+            checkSecretPost,
+            showTopBanner,
+            setTopBannerVisibility
         }}>
             {children}
         </DataContext.Provider>

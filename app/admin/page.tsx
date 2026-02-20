@@ -6,7 +6,7 @@ import { useData, Post, User } from "../contexts/DataContext";
 
 export default function AdminDashboard() {
     const isAdmin = true;
-    const { posts, users, addPost, deletePost, updatePost, grantAccess } = useData();
+    const { posts, users, addPost, deletePost, updatePost, grantAccess, showTopBanner, setTopBannerVisibility } = useData();
 
     const [activeTab, setActiveTab] = useState("dashboard");
 
@@ -110,6 +110,28 @@ export default function AdminDashboard() {
                             <StatCard label="Total Users" value={totalUsers} icon={Users} color="bg-blue-500" />
                             <StatCard label="Total Posts" value={activePosts} icon={FileText} color="bg-green-500" />
                             <StatCard label="Total Views" value={totalViews} icon={BarChart3} color="bg-purple-500" />
+                        </div>
+
+                        {/* Quick Settings */}
+                        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                            <div className="p-6 border-b border-slate-100 flex justify-between items-center">
+                                <h3 className="text-lg font-bold text-slate-800">Site Quick Settings</h3>
+                            </div>
+                            <div className="p-6 flex items-center justify-between">
+                                <div>
+                                    <h4 className="font-bold text-slate-900">상단 알림 배너 (Top Banner)</h4>
+                                    <p className="text-sm text-slate-500">"아마존 셀러센트럴 튜토리얼 오픈!" 배너를 사이트 상단에 표시합니다.</p>
+                                </div>
+                                <label className="relative inline-flex items-center cursor-pointer">
+                                    <input
+                                        type="checkbox"
+                                        className="sr-only peer"
+                                        checked={showTopBanner}
+                                        onChange={(e) => setTopBannerVisibility(e.target.checked)}
+                                    />
+                                    <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                                </label>
+                            </div>
                         </div>
 
                         {/* Recent Activity Table */}

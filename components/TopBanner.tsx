@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
+import { useData } from "../app/contexts/DataContext";
 
 // Configuration for easy admin updates
 const BANNER_CONFIG = {
@@ -13,6 +14,10 @@ const BANNER_CONFIG = {
 };
 
 export default function TopBanner() {
+    const { showTopBanner } = useData();
+
+    if (!showTopBanner) return null;
+
     return (
         <div
             className={`fixed top-0 left-0 right-0 z-[60] ${BANNER_CONFIG.height} ${BANNER_CONFIG.backgroundColor} text-white flex items-center overflow-hidden shadow-sm`}
