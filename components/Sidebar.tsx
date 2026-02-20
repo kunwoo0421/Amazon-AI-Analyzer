@@ -62,17 +62,17 @@ const NAVIGATION_CONFIG = [
         ]
     },
     {
-        category: "구독자/고객 사용 (User 2+)",
+        category: "AI 분석 도구 (Analyzer)",
         items: [
             {
-                name: "내 제품 분석하기",
+                name: "AI 제품 분석기",
                 path: "/analysis",
                 icon: Search,
-                minRole: "USER_2" as UserRole,
+                minRole: "USER_1" as UserRole,
                 children: [
-                    { name: "내 제품 분석하기 (미국)", path: "/analysis/us" },
-                    { name: "내 제품 분석하기 (일본)", path: "/analysis/jp" },
-                    { name: "내 제품 분석하기 (기타)", path: "/analysis/global" }
+                    { name: "통합 분석 (미국 시장)", path: "/analysis" },
+                    { name: "일본 시장 분석 (예정)", path: "/analysis/jp" },
+                    { name: "글로벌 분석 (예정)", path: "/analysis/global" }
                 ]
             }
         ]
