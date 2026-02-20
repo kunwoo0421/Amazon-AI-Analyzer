@@ -27,6 +27,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { useData, UserRole } from "../app/contexts/DataContext";
+import { supabase } from "@/lib/supabase";
 
 // Navigation Structure based on Excellence Table
 const NAVIGATION_CONFIG = [
@@ -148,6 +149,13 @@ export default function Sidebar({ variant = 'default' }: SidebarProps) {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
+    const handleLogout = async () => {
+        setIsMenuOpen(false);
+        await supabase.auth.signOut();
+        sessionStorage.removeItem('sessionOnly');
+        window.location.href = '/login';
+    };
+
     // Theme Classes based on variant - Updated to Dark Theme (#27273f)
     const theme = {
         container: "bg-primary text-white border-r border-slate-800",
@@ -220,7 +228,7 @@ export default function Sidebar({ variant = 'default' }: SidebarProps) {
                                 </Link>
                                 <div className="h-px bg-gray-100 my-1" />
                                 <button
-                                    onClick={() => { setIsMenuOpen(false); /* Add logout logic */ }}
+                                    onClick={handleLogout}
                                     className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 transition-colors text-left"
                                 >
                                     <LogOut size={16} /> 로그아웃

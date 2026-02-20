@@ -1,6 +1,7 @@
 "use client";
 
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { supabase } from '@/lib/supabase';
 
 // ----------------------------------------------------------------------
 // Types
@@ -58,6 +59,7 @@ interface DataContextType {
     checkSecretPost: (id: number, password?: string) => boolean;
     showTopBanner: boolean;
     setTopBannerVisibility: (show: boolean) => void;
+    isLoadingAuth: boolean;
 }
 
 // ----------------------------------------------------------------------
@@ -110,7 +112,43 @@ export function DataProvider({ children }: { children: ReactNode }) {
         'ADMIN_1': { email: 'admin@withalice.team', nickname: 'Master', role: 'ADMIN_1', isAdmin: true },
     };
 
-    const [currentUser, setCurrentUser] = useState<User>(MOCK_USERS['USER_3']); // Default to highest user for demo
+    const [currentUser, setCurrentUser] = useState<User | null>(null);
+    const [isLoadingAuth, setIsLoadingAuth] = useState(true);
+
+    // ✅ Supabase Auth Listener
+    useEffect(() => {
+        // 현재 세션 확인
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            if (session?.user) {
+                mapSupabaseUserToLocalUser(session.user);
+            }
+            setIsLoadingAuth(false);
+        });
+
+        // 인증 상태 변경 감지 (로그인, 로그아웃 등)
+        const { data: { subscription } } = supabase.auth.onAuthStateChange((_event: any, session: any) => {
+            if (session?.user) {
+                mapSupabaseUserToLocalUser(session.user);
+            } else {
+                setCurrentUser(null);
+            }
+        });
+
+        return () => subscription.unsubscribe();
+    }, []);
+
+    const mapSupabaseUserToLocalUser = (sUser: any) => {
+        // Supabase user_metadata 정보 활용, 없으면 기본값 설정
+        const role = sUser.user_metadata?.role || 'USER_1';
+        const nickname = sUser.user_metadata?.nickname || sUser.email?.split('@')[0] || 'User';
+
+        setCurrentUser({
+            email: sUser.email || '',
+            nickname,
+            role,
+            isAdmin: role === 'ADMIN_1' || role === 'ADMIN_2'
+        });
+    };
 
     const addPost = (postData: Omit<Post, 'id' | 'date' | 'views'>) => {
         const newPost: Post = { ...postData, id: Date.now(), date: new Date().toISOString().split('T')[0], views: 0 };
@@ -188,7 +226,8 @@ export function DataProvider({ children }: { children: ReactNode }) {
             verifyAccess,
             checkSecretPost,
             showTopBanner,
-            setTopBannerVisibility
+            setTopBannerVisibility,
+            isLoadingAuth
         }}>
             {children}
         </DataContext.Provider>

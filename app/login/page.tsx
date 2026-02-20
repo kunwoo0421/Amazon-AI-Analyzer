@@ -3,21 +3,63 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, Lock, LogIn, UserPlus, ArrowRight, ShieldCheck, CheckCircle2 } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 
 export default function LoginPage() {
     const [isLogin, setIsLogin] = useState(true);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [keepMeLoggedIn, setKeepMeLoggedIn] = useState(true);
+    const [nickname, setNickname] = useState("");
+    const [errorMsg, setErrorMsg] = useState("");
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
-        // Supabase Auth 연동 자리 (현재는 딜레이 후 홈 이동)
-        setTimeout(() => {
+        setErrorMsg("");
+
+        try {
+            if (isLogin) {
+                // 로그인
+                const { data, error } = await supabase.auth.signInWithPassword({
+                    email,
+                    password,
+                });
+
+                if (error) throw error;
+
+                // 로그인 유지 안함 체크 해제 시, 강제 로그아웃 훅 추가 용도로 식별자 저장
+                if (!keepMeLoggedIn) {
+                    sessionStorage.setItem('sessionOnly', 'true');
+                } else {
+                    sessionStorage.removeItem('sessionOnly');
+                }
+
+                window.location.href = "/";
+            } else {
+                // 회원가입
+                const { data, error } = await supabase.auth.signUp({
+                    email,
+                    password,
+                    options: {
+                        data: {
+                            nickname: nickname || email.split('@')[0],
+                        }
+                    }
+                });
+
+                if (error) throw error;
+
+                alert("회원가입이 완료되었습니다! (이메일 인증이 필요할 수 있습니다)");
+                setIsLogin(true); // 가입 후 로그인 화면으로 전환
+            }
+        } catch (error: any) {
+            console.error("Auth error:", error);
+            setErrorMsg(error.message || "오류가 발생했습니다. 다시 시도해주세요.");
+        } finally {
             setIsLoading(false);
-            window.location.href = "/"; // 임시 로그인 처리
-        }, 1500);
+        }
     };
 
     return (
@@ -97,6 +139,8 @@ export default function LoginPage() {
                                         </div>
                                         <input
                                             type="text"
+                                            value={nickname}
+                                            onChange={e => setNickname(e.target.value)}
                                             placeholder="이름 또는 닉네임"
                                             className="w-full pl-11 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all font-medium text-slate-900"
                                         />
@@ -133,9 +177,24 @@ export default function LoginPage() {
                             />
                         </div>
 
+                        {errorMsg && (
+                            <div className="text-red-500 font-bold text-sm text-center bg-red-50 py-2 rounded-lg">
+                                {errorMsg}
+                            </div>
+                        )}
+
                         {isLogin && (
-                            <div className="flex justify-end">
-                                <button type="button" className="text-sm font-bold text-indigo-600 hover:text-indigo-800">
+                            <div className="flex justify-between items-center text-sm font-bold">
+                                <label className="flex items-center gap-2 cursor-pointer text-slate-600 hover:text-slate-900 transition-colors">
+                                    <input
+                                        type="checkbox"
+                                        checked={keepMeLoggedIn}
+                                        onChange={(e) => setKeepMeLoggedIn(e.target.checked)}
+                                        className="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300"
+                                    />
+                                    <span>자동 로그인 유지</span>
+                                </label>
+                                <button type="button" className="text-indigo-600 hover:text-indigo-800">
                                     비밀번호를 잊으셨나요?
                                 </button>
                             </div>

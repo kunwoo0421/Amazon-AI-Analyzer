@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import { Menu, X } from "lucide-react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "../lib/utils";
 import Link from "next/link";
 import Image from "next/image";
@@ -13,7 +13,8 @@ import { useData } from "../app/contexts/DataContext";
 export function NavigationWrapper({ children }: { children: React.ReactNode }) {
     const [isOpen, setIsOpen] = useState(false);
     const pathname = usePathname();
-    const { showTopBanner } = useData();
+    const { showTopBanner, currentUser, isLoadingAuth } = useData();
+    const router = useRouter();
 
     // Close sidebar when route changes
     useEffect(() => {
@@ -23,8 +24,39 @@ export function NavigationWrapper({ children }: { children: React.ReactNode }) {
     // Do not show navigation on auth pages
     const isAuthPage = pathname === '/login' || pathname === '/signup';
 
-    if (isAuthPage) {
+    // Route Protection
+    useEffect(() => {
+        if (!isLoadingAuth) {
+            if (!currentUser && !isAuthPage) {
+                // If not logged in and not on auth page -> redirect to login
+                router.push("/login");
+            } else if (currentUser && isAuthPage) {
+                // If logged in and on auth page -> redirect to home
+                router.push("/");
+            }
+        }
+    }, [isLoadingAuth, currentUser, isAuthPage, router]);
+
+    // Show loading spinner while determining auth state
+    if (isLoadingAuth) {
+        return (
+            <div className="min-h-screen bg-slate-900 flex items-center justify-center">
+                <div className="flex flex-col items-center gap-4">
+                    <span className="animate-spin w-10 h-10 border-4 border-indigo-500/30 border-t-indigo-500 rounded-full" />
+                    <p className="text-slate-400 font-medium text-sm">인증 정보를 확인 중입니다...</p>
+                </div>
+            </div>
+        );
+    }
+
+    // Auth pages shouldn't show the layout
+    if (isAuthPage && !currentUser) {
         return <div className="min-h-screen bg-slate-900">{children}</div>;
+    }
+
+    // Don't render layout if we are redirecting away from protected route
+    if (!currentUser) {
+        return null;
     }
 
     return (
