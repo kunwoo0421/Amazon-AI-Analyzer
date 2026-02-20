@@ -18,6 +18,13 @@ export function NavigationWrapper({ children }: { children: React.ReactNode }) {
         setIsOpen(false);
     }, [pathname]);
 
+    // Do not show navigation on auth pages
+    const isAuthPage = pathname === '/login' || pathname === '/signup';
+
+    if (isAuthPage) {
+        return <div className="min-h-screen bg-slate-900">{children}</div>;
+    }
+
     return (
         <div className="flex min-h-screen relative overflow-x-hidden pt-10">
             <TopBanner />
