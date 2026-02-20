@@ -1,0 +1,146 @@
+{
+    "search_term": "Korean Skincare",
+    "total_results": 4500,
+    "search_results": [
+        {
+            "position": 1,
+            "title": "COSRX Snail Mucin 96% Power Repairing Essence, 3.38 fl.oz | Hydrating Serum for Face with Snail Secretion Filtrate",
+            "asin": "B00PBX3L7K",
+            "price": {
+                "value": 13.99,
+                "currency": "USD"
+            },
+            "rating": 4.6,
+            "ratings_total": 45890,
+            "best_seller_rank": 12,
+            "is_prime": true,
+            "image": "https://m.media-amazon.com/images/I/51+u17+B+IL._AC_UL320_.jpg"
+        },
+        {
+            "position": 2,
+            "title": "Beauty of Joseon Relief Sun: Rice + Probiotics (SPF50+ PA++++) 50ml",
+            "asin": "B09J2954L6",
+            "price": {
+                "value": 18.00,
+                "currency": "USD"
+            },
+            "rating": 4.5,
+            "ratings_total": 12400,
+            "best_seller_rank": 45,
+            "is_prime": true,
+            "image": "https://m.media-amazon.com/images/I/41Dq9J+pLcL._AC_UL320_.jpg"
+        },
+        {
+            "position": 3,
+            "title": "Anua Heartleaf 77% Soothing Toner 250ml / 8.45 fl.oz | pH 5.5 Skin Care for Sensitive Skin",
+            "asin": "B089R62F6Q",
+            "price": {
+                "value": 19.89,
+                "currency": "USD"
+            },
+            "rating": 4.4,
+            "ratings_total": 8900,
+            "best_seller_rank": 89,
+            "is_prime": true,
+            "image": "https://m.media-amazon.com/images/I/61k+uO+8X+L._AC_UL320_.jpg"
+        },
+        {
+            "position": 4,
+            "title": "LANEIGE Lip Sleeping Mask: Nourish & Hydrate with Vitamin C, Antioxidants",
+            "asin": "B07XXPHQ2G",
+            "price": {
+                "value": 24.00,
+                "currency": "USD"
+            },
+            "rating": 4.7,
+            "ratings_total": 31200,
+            "best_seller_rank": 5,
+            "is_prime": true,
+            "image": "https://m.media-amazon.com/images/I/51+u17+B+IL._AC_UL320_.jpg"
+        },
+        {
+            "position": 5,
+            "title": "Innisfree Daily UV Defense Sunscreen Broad Spectrum SPF 36",
+            "asin": "B08W1Z1Y12",
+            "price": {
+                "value": 16.00,
+                "currency": "USD"
+            },
+            "rating": 4.5,
+            "ratings_total": 6700,
+            "best_seller_rank": 150,
+            "is_prime": true,
+            "image": "https://m.media-amazon.com/images/I/51+u17+B+IL._AC_UL320_.jpg"
+        },
+        {
+            "position": 6,
+            "title": "[I'm From] Rice Toner, 5.07 fl.oz | Glow Essence with 77.78% Rice Extract",
+            "asin": "B07K23HV61",
+            "price": {
+                "value": 21.50,
+                "currency": "USD"
+            },
+            "rating": 4.6,
+            "ratings_total": 4500,
+            "best_seller_rank": 210,
+            "is_prime": true,
+            "image": "https://m.media-amazon.com/images/I/51+u17+B+IL._AC_UL320_.jpg"
+        },
+        {
+            "position": 7,
+            "title": "Torriden Dive-In Low Molecular Hyaluronic Acid Serum 50ml",
+            "asin": "B08JSL9886",
+            "price": {
+                "value": 17.99,
+                "currency": "USD"
+            },
+            "rating": 4.5,
+            "ratings_total": 3200,
+            "best_seller_rank": 320,
+            "is_prime": true,
+            "image": "https://m.media-amazon.com/images/I/51+u17+B+IL._AC_UL320_.jpg"
+        },
+        {
+            "position": 8,
+            "title": "Mediheal Tea Tree Essential Blemish Control Mask (10 Pack)",
+            "asin": "B00F3C8806",
+            "price": {
+                "value": 12.50,
+                "currency": "USD"
+            },
+            "rating": 4.6,
+            "ratings_total": 1500,
+            "best_seller_rank": 450,
+            "is_prime": false,
+            "image": "https://m.media-amazon.com/images/I/51+u17+B+IL._AC_UL320_.jpg"
+        },
+        {
+            "position": 9,
+            "title": "SOME BY MI 30 Days Miracle Clear Spot Patch",
+            "asin": "B07PD2JZ3M",
+            "price": {
+                "value": 9.99,
+                "currency": "USD"
+            },
+            "rating": 4.3,
+            "ratings_total": 850,
+            "best_seller_rank": 800,
+            "is_prime": true,
+            "image": "https://m.media-amazon.com/images/I/51+u17+B+IL._AC_UL320_.jpg"
+        },
+        {
+            "position": 10,
+            "title": "Dr.Jart+ Cicapair Tiger Grass Color Correcting Treatment",
+            "asin": "B01M9E7M0D",
+            "price": {
+                "value": 52.00,
+                "currency": "USD"
+            },
+            "rating": 4.4,
+            "ratings_total": 5600,
+            "best_seller_rank": 110,
+            "is_prime": true,
+            "image": "https://m.media-amazon.com/images/I/51+u17+B+IL._AC_UL320_.jpg"
+        }
+    ]
+}

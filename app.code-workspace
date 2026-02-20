@@ -1,0 +1,26 @@
+{
+	"folders": [
+		{
+			"path": "app"
+		},
+		{
+			"path": "app/education"
+		},
+		{
+			"path": "app/library"
+		},
+		{
+			"path": "app/mypage"
+		},
+		{
+			"path": "components"
+		},
+		{
+			"path": "data"
+		},
+		{
+			"path": "lib"
+		}
+	],
+	"settings": {}
+}
