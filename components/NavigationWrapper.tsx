@@ -8,10 +8,12 @@ import { cn } from "../lib/utils";
 import Link from "next/link";
 import Image from "next/image";
 import TopBanner from "./TopBanner";
+import { useData } from "../app/contexts/DataContext";
 
 export function NavigationWrapper({ children }: { children: React.ReactNode }) {
     const [isOpen, setIsOpen] = useState(false);
     const pathname = usePathname();
+    const { showTopBanner } = useData();
 
     // Close sidebar when route changes
     useEffect(() => {
@@ -26,10 +28,10 @@ export function NavigationWrapper({ children }: { children: React.ReactNode }) {
     }
 
     return (
-        <div className="flex min-h-screen relative overflow-x-hidden pt-10">
+        <div className={`flex min-h-screen relative overflow-x-hidden ${showTopBanner ? 'pt-10' : 'pt-0'}`}>
             <TopBanner />
             {/* Mobile Header */}
-            <header className="lg:hidden fixed top-10 left-0 right-0 h-16 bg-white/80 backdrop-blur-md border-b border-slate-200 z-40 flex items-center px-4 shadow-sm">
+            <header className={`lg:hidden fixed ${showTopBanner ? 'top-10' : 'top-0'} left-0 right-0 h-16 bg-white/80 backdrop-blur-md border-b border-slate-200 z-40 flex items-center px-4 shadow-sm`}>
                 <div className="flex items-center gap-3 z-50">
                     <button
                         onClick={() => setIsOpen(true)}
@@ -65,7 +67,7 @@ export function NavigationWrapper({ children }: { children: React.ReactNode }) {
             {/* Sidebar Container */}
             <aside
                 className={cn(
-                    "fixed top-10 bottom-0 left-0 z-50 w-72 transform bg-primary border-r border-slate-800 transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-auto lg:h-auto shadow-xl shadow-black/20",
+                    `fixed ${showTopBanner ? 'top-10' : 'top-0'} bottom-0 left-0 z-50 w-72 transform bg-primary border-r border-slate-800 transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-auto lg:h-auto shadow-xl shadow-black/20`,
                     isOpen ? "translate-x-0" : "-translate-x-full"
                 )}
             >
