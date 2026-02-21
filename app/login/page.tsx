@@ -18,8 +18,13 @@ export default function LoginPage() {
         setErrorMsg("");
 
         try {
+            let loginEmail = email;
+            if (loginEmail === "admin") {
+                loginEmail = "admin@withalice.team";
+            }
+
             const { data, error } = await supabase.auth.signInWithPassword({
-                email,
+                email: loginEmail,
                 password,
             });
 
@@ -106,11 +111,11 @@ export default function LoginPage() {
                                 <Mail size={20} className="text-slate-400" />
                             </div>
                             <input
-                                type="email"
+                                type="text"
                                 required
                                 value={email}
                                 onChange={e => setEmail(e.target.value)}
-                                placeholder="이메일 주소"
+                                placeholder="아이디 (또는 이메일)"
                                 className="w-full pl-11 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all font-medium text-slate-900"
                             />
                         </div>
