@@ -151,6 +151,7 @@ export default function Sidebar({ variant = 'default' }: SidebarProps) {
 
     const handleLogout = async () => {
         setIsMenuOpen(false);
+        localStorage.removeItem('mock_admin');
         await supabase.auth.signOut();
         sessionStorage.removeItem('sessionOnly');
         window.location.href = '/login';

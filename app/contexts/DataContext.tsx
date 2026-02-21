@@ -117,6 +117,18 @@ export function DataProvider({ children }: { children: ReactNode }) {
 
     // ✅ Supabase Auth Listener
     useEffect(() => {
+        // 프리패스 모의 어드민 세션 확인 (DB 조회 없이 무조건 로그인)
+        if (typeof window !== 'undefined' && window.localStorage.getItem("mock_admin") === "true") {
+            setCurrentUser({
+                email: 'admin@withalice.team',
+                nickname: 'Admin (Mock)',
+                role: 'ADMIN_1',
+                isAdmin: true
+            });
+            setIsLoadingAuth(false);
+            return;
+        }
+
         // 현재 세션 확인
         supabase.auth.getSession().then(({ data: { session } }) => {
             if (session?.user) {
